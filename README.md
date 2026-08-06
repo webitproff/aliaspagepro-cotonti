@@ -5,6 +5,12 @@
 Automatically creates readable, transliterated aliases (URL paths) for pages of the `page` module when the user leaves the alias field empty.  
 Completely replaces the built-in `autoalias2` plugin (shipped with Cotonti) — simultaneous use is not allowed and may cause conflicts.
 
+
+<img width="1536" height="1024" alt="Alias Page PRO — automatic aliases for Page module pages Cotonti by webitproff" src="https://github.com/user-attachments/assets/96c06085-9e8e-4127-85cc-9062e2903bc8" />
+
+
+
+
 **Important:** Do not install this plugin together with the built-in `autoalias2` ([https://github.com/Cotonti/Cotonti/tree/master/plugins/autoalias2](https://github.com/Cotonti/Cotonti/tree/master/plugins/autoalias2)) — they perform the same task, and their coexistence will lead to unstable operation.
 
 ---
