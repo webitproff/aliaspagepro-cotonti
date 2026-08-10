@@ -26,8 +26,8 @@ Hooks=page.add.add.done,page.edit.update.done
 
 defined('COT_CODE') or die('Wrong URL');
 
-if (empty($ritem['page_alias']))
+if (empty($rpage['page_alias']))
 {
-	require_once cot_incfile('aliaspagepro', 'plug');
-	$ritem['page_alias'] = aliaspagepro_update($ritem['page_title'], $id);
+    require_once cot_incfile('aliaspagepro', 'plug');
+    $rpage['page_alias'] = aliaspagepro_update($rpage['page_title'], $id);
 }
