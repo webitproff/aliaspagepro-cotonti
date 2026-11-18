@@ -15,88 +15,83 @@
  * Support:          https://abuyfile.com/forums/cotonti/custom/plugs/
  * Source:           https://github.com/webitproff/aliaspagepro-cotonti
  * 
- * Date: Aug 6Th, 2026
+ *
+ * Date: 2026-11-18
  * @package aliaspagepro
- * @version 2.5.1
+ * @version 3.0.0
  * @author webitproff
  * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/aliaspagepro-cotonti
  * @license BSD
  */
 
+
 defined('COT_CODE') or die('Wrong URL');
 
-// ========================
-// PLUGIN INFO (ADMIN)
-// ========================
-$L['info_name']  = 'Alias Page PRO';
-$L['info_desc']  = 'Automatically creates page aliases from titles if they are empty.';
-$L['info_notes'] = 'Beginners must read the <strong>documentation <a target="_blank" href="https://github.com/webitproff/aliaspagepro-cotonti">in README.md</a> from the plugin repository</strong>.';
 
-// ========================
-// TITLES AND DESCRIPTIONS (same values, pulled by other keys)
-// ========================
+$L['info_name']  = 'Alias Page PRO';
+$L['info_desc']  = 'Generates SEO-friendly page aliases from titles with configurable length.';
+$L['info_notes'] = 'Documentation: <a target="_blank" href="https://github.com/webitproff/aliaspagepro-cotonti">README.md</a>.';
+
 $L['aliaspagepro_title'] = $L['info_name'];
 $L['aliaspagepro_desc']  = $L['info_desc'];
 $L['aliaspagepro_name']  = $L['info_name'];
 
-// ========================
-// PLUGIN SETTINGS (ADMIN)
-// ========================
-
-// --- Transliteration ---
 $L['cfg_translit']      = 'Transliterate non-Latin characters';
-$L['cfg_translit_hint'] = 'If enabled, Cyrillic titles will be converted to Latin script.';
+$L['cfg_translit_hint'] = 'Cyrillic will be transliterated to Latin before alias generation.';
 
-// --- Prepend ID ---
-$L['cfg_prepend_id']      = 'Prepend page ID to alias';
-$L['cfg_prepend_id_hint'] = 'E.g., "123-page-name" instead of just "page-name".';
+$L['cfg_lowercase']      = 'Lowercase alias';
+$L['cfg_lowercase_hint'] = 'Convert all letters to lowercase.';
 
-// --- Duplicate handling ---
-$L['cfg_on_duplicate']        = 'Behavior when duplicate alias is found';
-$L['cfg_on_duplicate_hint']   = 'What to append to the alias if it already exists (when ID is not prepended).';
-$L['cfg_on_duplicate_params'] = [
-    'ID'     => 'Page ID',
-    'Random' => 'Random number (2-99)',
-];
-
-// --- Word separator ---
-$L['cfg_sep']        = 'Word separator in alias';
-$L['cfg_sep_hint']   = 'Character that replaces spaces between words.';
+$L['cfg_sep']        = 'Word separator';
+$L['cfg_sep_hint']   = 'Character used to replace spaces between words.';
 $L['cfg_sep_params'] = [
     '-' => 'Hyphen (-)',
     '_' => 'Underscore (_)',
     '.' => 'Dot (.)',
 ];
 
-// --- Lowercase ---
-$L['cfg_lowercase']      = 'Convert alias to lowercase';
-$L['cfg_lowercase_hint'] = 'All letters of the alias will become lowercase.';
+$L['cfg_max_length']        = 'Maximum alias length';
+$L['cfg_max_length_hint']   = 'Characters in the final alias, including ID prefix and uniqueness suffix. Truncation happens at the last whole word.';
+$L['cfg_max_length_params'] = [
+    '24' => '24 characters',
+    '36' => '36 characters',
+    '52' => '52 characters',
+    '78' => '78 characters',
+];
 
-// ========================
-// MESSAGES AND ADMIN INTERFACE
-// ========================
+$L['cfg_prepend_id']      = 'Prepend page ID to alias';
+$L['cfg_prepend_id_hint'] = 'E.g. <code>123-page-title</code>. Guarantees uniqueness without a suffix.';
 
-// --- Tabs ---
-$L['aliaspagepro_tab_stats']   = 'Statistics';
-$L['aliaspagepro_tab_list']    = 'Lists & Aliases';
-$L['aliaspagepro_tab_manage']  = 'Management';
+$L['cfg_on_duplicate']        = 'Duplicate resolution strategy';
+$L['cfg_on_duplicate_hint']   = 'What to append to the alias when it already exists (with prepend ID off). <strong>Hash</strong> — deterministic 6-char hash; <strong>ID</strong> — page ID; <strong>Random</strong> — random number 2–9999.';
+$L['cfg_on_duplicate_params'] = [
+    'ID'     => 'Page ID (deterministic)',
+    'Hash'   => 'Title hash (deterministic)',
+    'Random' => 'Random number (2–9999)',
+];
 
-// --- Statistics ---
+$L['cfg_perpage_list']        = 'Items per page — List tab';
+$L['cfg_perpage_list_hint']   = 'Number of items per list page.';
+$L['cfg_perpage_manage']      = 'Items per page — Manage tab';
+$L['cfg_perpage_manage_hint'] = 'Number of items per edit page.';
+
+$L['aliaspagepro_tab_stats']  = 'Statistics';
+$L['aliaspagepro_tab_list']   = 'Lists & Aliases';
+$L['aliaspagepro_tab_manage'] = 'Manage';
+
 $L['aliaspagepro_stats_total_items']       = 'Total pages';
 $L['aliaspagepro_stats_with_alias']        = 'With alias';
 $L['aliaspagepro_stats_without_alias']     = 'Without alias';
 $L['aliaspagepro_stats_without_metatitle'] = 'Without Meta Title';
 
-// --- Table columns ---
-$L['aliaspagepro_col_title']      = 'Title';
-$L['aliaspagepro_col_metatitle']  = 'Meta Title';
-$L['aliaspagepro_col_alias']      = 'Alias';
-$L['aliaspagepro_no_items']       = 'No pages found';
+$L['aliaspagepro_col_title']     = 'Title';
+$L['aliaspagepro_col_metatitle'] = 'Meta Title';
+$L['aliaspagepro_col_alias']     = 'Alias';
+$L['aliaspagepro_no_items']      = 'No pages';
 
-// --- Actions ---
-$L['create_aliases']              = 'Create aliases';
-$L['aliases_written']             = 'Aliases written: {$count}';
-$L['aliaspagepro_update_success'] = 'Data updated successfully';
+$L['create_aliases']               = 'Create aliases';
+$L['aliases_written']              = 'Aliases written: {$count}';
+$L['aliaspagepro_update_success']  = 'Data updated successfully';
 $L['aliaspagepro_aliases_cleared'] = 'All aliases cleared';
 $L['aliaspagepro_clear_all']       = 'Clear all aliases';
 $L['aliaspagepro_confirm_clear']   = 'Are you sure you want to clear all aliases?';
