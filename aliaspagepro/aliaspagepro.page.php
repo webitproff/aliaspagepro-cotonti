@@ -16,18 +16,22 @@ Hooks=page.add.add.done,page.edit.update.done
  * Support:          https://abuyfile.com/forums/cotonti/custom/plugs/
  * Source:           https://github.com/webitproff/aliaspagepro-cotonti
  *
- * Date: Aug 6Th, 2026
+ * Date: 2026-11-18
  * @package aliaspagepro
- * @version 2.5.1
+ * @version 3.0.0
  * @author webitproff
  * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/aliaspagepro-cotonti
  * @license BSD
  */
 
+
+
 defined('COT_CODE') or die('Wrong URL');
 
-if (empty($rpage['page_alias']))
-{
+if (empty($rpage['page_alias'])) {
     require_once cot_incfile('aliaspagepro', 'plug');
-    $rpage['page_alias'] = aliaspagepro_update($rpage['page_title'], $id);
+    $rpage['page_alias'] = aliaspagepro_update(
+        (string) $rpage['page_title'],
+        (int) $id
+    );
 }
