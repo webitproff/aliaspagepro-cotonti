@@ -15,52 +15,34 @@
  * Support:          https://abuyfile.com/forums/cotonti/custom/plugs/
  * Source:           https://github.com/webitproff/aliaspagepro-cotonti
  * 
- * Date: Aug 6Th, 2026
+ *
+ * Date: 2026-11-18
  * @package aliaspagepro
- * @version 2.5.1
+ * @version 3.0.0
  * @author webitproff
  * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/aliaspagepro-cotonti
  * @license BSD
  */
 
-defined('COT_CODE') or die('Wrong URL');
 
-// ========================
-// PLUGIN INFO (ADMIN)
-// ========================
+
+// ===== PLUGIN INFO =====
 $L['info_name']  = 'Alias Page PRO';
-$L['info_desc']  = 'Автоматическое создание алиасов страниц из заголовков, если они не заполнены.';
-$L['info_notes'] = 'Новичкам обязательно читать <strong>документацию <a target="_blank" href="https://github.com/webitproff/aliaspagepro-cotonti">в README.md</a> из репозитория плагина</strong>.';
+$L['info_desc']  = 'Автоматическое создание алиасов страниц из заголовков с настраиваемой длиной.';
+$L['info_notes'] = 'Документация: <a target="_blank" href="https://github.com/webitproff/aliaspagepro-cotonti">README.md</a>.';
 
-// ========================
-// TITLES AND DESCRIPTIONS (same values, pulled by other keys)
-// ========================
 $L['aliaspagepro_title'] = $L['info_name'];
 $L['aliaspagepro_desc']  = $L['info_desc'];
 $L['aliaspagepro_name']  = $L['info_name'];
 
-// ========================
-// PLUGIN SETTINGS (ADMIN)
-// ========================
-
-// --- Transliteration ---
+// ===== SETTINGS =====
 $L['cfg_translit']      = 'Транслитерировать нелатинские символы';
-$L['cfg_translit_hint'] = 'Если включено, кириллические заголовки будут преобразованы в латиницу.';
+$L['cfg_translit_hint'] = 'Кириллица будет преобразована в латиницу перед генерацией алиаса.';
 
-// --- Prepend ID ---
-$L['cfg_prepend_id']      = 'Добавить ID страницы в начало алиаса';
-$L['cfg_prepend_id_hint'] = 'Например, "123-название-страницы" вместо простого "название-страницы".';
+$L['cfg_lowercase']      = 'Приводить алиас к нижнему регистру';
+$L['cfg_lowercase_hint'] = 'Все буквы алиаса станут строчными.';
 
-// --- Duplicate handling ---
-$L['cfg_on_duplicate']        = 'Поведение при обнаружении дубликата алиаса';
-$L['cfg_on_duplicate_hint']   = 'Что добавить к алиасу, если такой уже существует (если ID не добавляется в начало).';
-$L['cfg_on_duplicate_params'] = [
-    'ID'     => 'ID страницы',
-    'Random' => 'Случайное число (2-99)',
-];
-
-// --- Word separator ---
-$L['cfg_sep']        = 'Разделитель слов в алиасе';
+$L['cfg_sep']        = 'Разделитель слов';
 $L['cfg_sep_hint']   = 'Символ, которым заменяются пробелы между словами.';
 $L['cfg_sep_params'] = [
     '-' => 'Дефис (-)',
@@ -68,35 +50,49 @@ $L['cfg_sep_params'] = [
     '.' => 'Точка (.)',
 ];
 
-// --- Lowercase ---
-$L['cfg_lowercase']      = 'Приводить алиас к нижнему регистру';
-$L['cfg_lowercase_hint'] = 'Все буквы алиаса станут строчными.';
+$L['cfg_max_length']        = 'Максимальная длина алиаса';
+$L['cfg_max_length_hint']   = 'Символов в итоговом алиасе, включая префикс ID и суффикс уникализации. При превышении алиас обрезается по последнему целому слову.';
+$L['cfg_max_length_params'] = [
+    '24' => '24 символа',
+    '36' => '36 символов',
+    '52' => '52 символа',
+    '78' => '78 символов',
+];
 
-// ========================
-// MESSAGES AND ADMIN INTERFACE
-// ========================
+$L['cfg_prepend_id']      = 'Добавлять ID страницы в начало алиаса';
+$L['cfg_prepend_id_hint'] = 'Например, <code>123-nazvanie-stranicy</code>. Гарантирует уникальность без суффикса.';
 
-// --- Tabs ---
-$L['aliaspagepro_tab_stats']   = 'Статистика';
-$L['aliaspagepro_tab_list']    = 'Списки и Алиасы';
-$L['aliaspagepro_tab_manage']  = 'Управление';
+$L['cfg_on_duplicate']        = 'Стратегия уникализации при дубликате';
+$L['cfg_on_duplicate_hint']   = 'Что добавлять в конец алиаса, если такой уже существует (при выключенном «prepend ID»). <strong>Hash</strong> — детерминированный 6-символьный хэш; <strong>ID</strong> — ID страницы; <strong>Random</strong> — случайное 2–9999.';
+$L['cfg_on_duplicate_params'] = [
+    'ID'     => 'ID страницы (детерминированный)',
+    'Hash'   => 'Хэш заголовка (детерминированный)',
+    'Random' => 'Случайное число (2–9999)',
+];
 
-// --- Statistics ---
+$L['cfg_perpage_list']        = 'Записей на страницу — вкладка «Списки и Алиасы»';
+$L['cfg_perpage_list_hint']   = 'Число записей на одной странице списка.';
+$L['cfg_perpage_manage']      = 'Записей на страницу — вкладка «Управление»';
+$L['cfg_perpage_manage_hint'] = 'Число записей на одной странице редактирования.';
+
+// ===== ADMIN UI =====
+$L['aliaspagepro_tab_stats']  = 'Статистика';
+$L['aliaspagepro_tab_list']   = 'Списки и Алиасы';
+$L['aliaspagepro_tab_manage'] = 'Управление';
+
 $L['aliaspagepro_stats_total_items']       = 'Всего страниц';
 $L['aliaspagepro_stats_with_alias']        = 'С алиасом';
 $L['aliaspagepro_stats_without_alias']     = 'Без алиаса';
 $L['aliaspagepro_stats_without_metatitle'] = 'Без Meta Title';
 
-// --- Table columns ---
-$L['aliaspagepro_col_title']      = 'Заголовок';
-$L['aliaspagepro_col_metatitle']  = 'Meta Title';
-$L['aliaspagepro_col_alias']      = 'Алиас';
-$L['aliaspagepro_no_items']       = 'Страниц нет';
+$L['aliaspagepro_col_title']     = 'Заголовок';
+$L['aliaspagepro_col_metatitle'] = 'Meta Title';
+$L['aliaspagepro_col_alias']     = 'Алиас';
+$L['aliaspagepro_no_items']      = 'Страниц нет';
 
-// --- Actions ---
-$L['create_aliases'] = 'Создать алиасы';
-$L['aliases_written'] = 'Алиасов записано: {$count}';
-$L['aliaspagepro_update_success'] = 'Данные успешно обновлены';
+$L['create_aliases']               = 'Создать алиасы';
+$L['aliases_written']              = 'Алиасов записано: {$count}';
+$L['aliaspagepro_update_success']  = 'Данные успешно обновлены';
 $L['aliaspagepro_aliases_cleared'] = 'Все алиасы очищены';
-$L['aliaspagepro_clear_all'] = 'Очистить все алиасы';
-$L['aliaspagepro_confirm_clear'] = 'Вы уверены, что хотите очистить все алиасы?';
+$L['aliaspagepro_clear_all']       = 'Очистить все алиасы';
+$L['aliaspagepro_confirm_clear']   = 'Вы уверены, что хотите очистить все алиасы?';
