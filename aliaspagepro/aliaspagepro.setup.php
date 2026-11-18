@@ -4,12 +4,12 @@
 Code=aliaspagepro
 Name=Alias Page PRO
 Category=seo
-Description=Creates page alias from title if a user leaves it empty
-Version=2.5.1
-Date=Aug 6Th, 2026
+Description=Generates SEO-friendly page aliases from titles with configurable length and duplicate resolution
+Version=3.0.0
+Date=2026-11-18
 Author=webitproff
 Copyright=(c) webitproff 2026
-Notes=DO NOT INSTALL with autoalias2
+Notes=DO NOT INSTALL with autoalias2lance
 Auth_guests=R
 Lock_guests=W12345A
 Auth_members=RW
@@ -18,15 +18,20 @@ Requires_modules=page
 [END_COT_EXT]
 
 [BEGIN_COT_EXT_CONFIG]
-translit=01:radio::1:Transliterate non-latinic characters if possible
-prepend_id=02:radio::0:Prepend page ID to alias
-on_duplicate=03:select:ID,Random:ID:Number appended on duplicate alias (if prepend ID is off)
-sep=04:select:-,_,.:-:Word separator
-lowercase=05:radio::1:Cast to lower case
+translit=01:radio::1:Transliterate Cyrillic to Latin
+lowercase=02:radio::1:Cast alias to lowercase
+sep=03:select:-,_,.:-:Word separator
+max_length=04:select:24,36,52,78:36:Maximum alias length (characters)
+prepend_id=05:radio::0:Prepend page ID to alias
+on_duplicate=06:select:ID,Hash,Random:ID:Unique suffix strategy for duplicate aliases
+perpage_list=07:string::25:Items per page in "Lists & Aliases" tab
+perpage_manage=08:string::10:Items per page in "Manage" tab
 [END_COT_EXT_CONFIG]
 ==================== */
 
 defined('COT_CODE') or die('Wrong URL');
+
+
 
 /**
  * aliaspagepro.setup.php - Register data in $db_core and $db_config.
@@ -38,9 +43,9 @@ defined('COT_CODE') or die('Wrong URL');
  * Support:          https://abuyfile.com/forums/cotonti/custom/plugs/
  * Source:           https://github.com/webitproff/aliaspagepro-cotonti
  *
- * Date: Aug 6Th, 2026
+ * Date: 2026-11-18
  * @package aliaspagepro
- * @version 2.5.1
+ * @version 3.0.0
  * @author webitproff
  * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/aliaspagepro-cotonti
  * @license BSD
